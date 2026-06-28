@@ -2,8 +2,8 @@ import keyboard
 from recorder import record_audio_until_release
 from transcriber import transcribe
 from config import HOTKEY
-from brain import generate_response
-from tts import speak
+from command_parser import parse_command
+from actuator_controller import execute_command
 
 
 def main():
@@ -18,12 +18,14 @@ def main():
             user_text = transcribe(audio)
 
             print()
-            print("You said:", user_text)
+            print(repr(user_text))
             print()
 
-            response = generate_response(user_text)
+            command = parse_command(user_text)
 
-            speak(response)
+            print("Parsed command:", command)
+
+            execute_command(command)
 
 
 if __name__ == "__main__":

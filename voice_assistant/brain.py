@@ -1,17 +1,20 @@
+import requests
+
+OLLAMA_URL = "http://localhost:11434/api/generate"
+MODEL = "qwen3:4b"
+
+
 def generate_response(user_text):
-    text = user_text.lower()
+    payload = {
+        "model": MODEL,
+        "prompt": user_text,
+        "stream": False
+    }
 
-    if "hello" in text:
-        return "Hello. How can I help you?"
+    response = requests.post(OLLAMA_URL, json=payload)
 
-    elif "how are you" in text:
-        return "I am functioning normally."
+    if response.status_code != 200:
+        return f"Error: {response.status_code}"
 
-    elif "your name" in text:
-        return "I am your assistant."
-
-    elif "bye" in text:
-        return "Goodbye."
-
-    else:
-        return f"You said {user_text}"
+    data = response.json()
+    return data["response"]
