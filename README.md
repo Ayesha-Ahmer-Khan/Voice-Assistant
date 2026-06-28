@@ -1,2 +1,2 @@
 # Voice-Assistant
-A voice controlled ai assistant using Whsiper, LLM, and TTS
+A voice controlled ai assistant using Whsiper and Parsing
